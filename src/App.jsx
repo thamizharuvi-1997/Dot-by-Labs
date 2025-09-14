@@ -110,7 +110,6 @@ function App() {
 
   return (
     <div className="app">
-      {/* Search Header */}
       <div className="search-header">
         <div className="search-box-container">
           <span className="search-icon">🔍</span>
@@ -128,7 +127,6 @@ function App() {
         </div>
       </div>
 
-      {/* Tabs Row + Settings Icon */}
      {/* Tabs Row + Settings Icon */}
 <div className="tabs-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
   <div className="tabs" style={{ display: "flex", gap: "10px" }}>

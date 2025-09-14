@@ -1,4 +1,4 @@
-/* App.css */
+
 * {
   box-sizing: border-box;
 }
@@ -78,28 +78,35 @@ body {
 
 .tabs-row {
   display: flex;
-  justify-content: flex-start; /* align items left */
+  justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
   border-bottom: 1px solid #eee;
-  gap: 0.75rem; /* small gap between all children */
+  flex-wrap: wrap;
 }
 
 .tabs {
   display: flex;
-  gap: 1rem; /* spacing between each tab */
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
 }
 
 .tab {
   background: none;
   border: none;
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
   font-size: 14px;
   cursor: pointer;
   color: #666;
   display: flex;
   align-items: center;
-  position: relative;
+  white-space: nowrap;
+}
+
+.tab-icon {
+  margin-right: 4px;
 }
 
 .tab.active {
@@ -116,15 +123,11 @@ body {
 }
 
 .settings-container {
-  /* remove margin-left: auto to keep it next to tabs */
   position: relative;
-  z-index: 9999;
-  cursor: pointer;
-  /* add a small margin-left to separate from tabs */
-  margin-left: 8px;
+  margin-left: auto;
+  z-index: 10;
   display: flex;
   align-items: center;
-  height: 36px; /* same height as the dropdown top offset */
 }
 
 .settings-btn {
@@ -132,26 +135,24 @@ body {
   border: none;
   font-size: 18px;
   cursor: pointer;
+  padding: 0;
+  height: 36px;
+  width: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  width: 36px;
-  padding: 0;
-  line-height: 1;
 }
 
 .dropdown {
   position: absolute;
- right: 50px;
-    top: 100px;
+  top: 100%;
+  right: 0;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
   padding: 0.5rem 1rem;
-  z-index: 9999; /* make sure it's on top */
+  z-index: 9999;
   width: 150px;
-  margin: 0; /* remove any margin */
 }
 
 .dropdown-item {
@@ -166,7 +167,7 @@ body {
 
 .results {
   margin-top: 1rem;
-  max-height: 400px; /* height for scrolling */
+  max-height: 400px;  
   overflow-y: auto;
   padding-right: 8px;
   scroll-behavior: smooth;
@@ -211,11 +212,9 @@ body {
   color: #aaa;
   margin-top: 2rem;
 }
-/* Toggle Switch Styles */
-/* Container for switch + label */
 .switch-label {
   display: flex;
-  justify-content: space-between; /* text left, switch right */
+  justify-content: space-between; 
   align-items: center;
   cursor: pointer;
   font-size: 14px;
@@ -225,7 +224,6 @@ body {
   position: relative;
 }
 
-/* Hide default checkbox */
 .switch-label input {
   opacity: 0;
   width: 0;
@@ -233,7 +231,6 @@ body {
   position: absolute;
 }
 
-/* The slider background */
 .slider {
   position: relative;
   width: 40px;
@@ -244,7 +241,6 @@ body {
   flex-shrink: 0;
 }
 
-/* The round knob inside the slider */
 .slider::before {
   content: "";
   position: absolute;
@@ -257,12 +253,35 @@ body {
   transition: transform 0.3s;
 }
 
-/* When checked, change background */
 .switch-label input:checked + .slider {
   background-color: #4caf50;
 }
 
-/* Move knob to right when checked */
 .switch-label input:checked + .slider::before {
   transform: translateX(20px);
+}
+
+
+
+@media (max-width: 600px) {
+  .tabs-row {
+    flex-wrap: wrap;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .tab {
+    font-size: 13px;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .settings-container {
+    margin-left: auto;
+    order: 2;
+    align-self: flex-start;
+  }
 }
