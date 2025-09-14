@@ -129,53 +129,74 @@ function App() {
       </div>
 
       {/* Tabs Row + Settings Icon */}
-      <div className="tabs-row">
-        <div className="tabs">
-          {["All", "Files", "People", "Chats"].map((tab) => {
-            if (!activeTabs.includes(tab) && tab !== "All") return null;
+     {/* Tabs Row + Settings Icon */}
+<div className="tabs-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+  <div className="tabs" style={{ display: "flex", gap: "10px" }}>
+    {["All", "Files", "People", "Chats"].map((tab) => {
+      if (!activeTabs.includes(tab) && tab !== "All") return null;
 
-            const tabIcons = {
-              All: "🗂️",
-              People: "👤",
-              Files: "📎",
-              Chats: "💬",
-            };
+      const tabIcons = {
+        All: "🗂️",
+        People: "👤",
+        Files: "📎",
+        Chats: "💬",
+      };
 
-            return (
-              <button
-                key={tab}
-                className={`tab ${selectedTab === tab ? "active" : ""}`}
-                onClick={() => setSelectedTab(tab)}
-              >
-                <span className="tab-icon">{tabIcons[tab]}</span>
-                <span className="tab-label">{tab}</span>
-                <span className="count">{getTabCount(tab)}</span>
-              </button>
-            );
-          })}
-        </div>
+      return (
+        <button
+          key={tab}
+          className={`tab ${selectedTab === tab ? "active" : ""}`}
+          onClick={() => setSelectedTab(tab)}
+        >
+          <span className="tab-icon">{tabIcons[tab]}</span>
+          <span className="tab-label">{tab}</span>
+          <span className="count">{getTabCount(tab)}</span>
+        </button>
+      );
+    })}
+  </div>
 
-        {/* Settings Dropdown */}
-        <div className="settings-container">
-          <button className="settings-btn" onClick={() => setShowDropdown(!showDropdown)}>
-            ⚙️
-          </button>
-          {showDropdown && (
-            <div className="dropdown" ref={dropdownRef}>
-              {["Files", "People", "Chats", "Lists"].map((tab) => (
-                <label key={tab} className="dropdown-item">
-                  <input
-                    type="checkbox"
-                    checked={activeTabs.includes(tab)}
-                    onChange={() => handleToggleTab(tab)}
-                  />
-                  <span>{tab}</span>
-                </label>
-              ))}
-            </div>
-          )}
-        </div>
+  {/* Settings Dropdown */}
+  <div className="settings-container" style={{ position: "relative" }}>
+    <button
+      className="settings-btn"
+      onClick={() => setShowDropdown(!showDropdown)}
+      style={{ position: "relative", zIndex: 10 }}
+    >
+      ⚙️
+    </button>
+    {showDropdown && (
+      <div
+        className="dropdown"
+        ref={dropdownRef}
+        style={{
+          position: "absolute",
+          top: "100%",
+          right: 0,
+          background: "white",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+          borderRadius: "4px",
+          marginTop: "4px",
+          zIndex: 9,
+          minWidth: "120px",
+        }}
+      >
+        {["Files", "People", "Chats", "Lists"].map((tab) => (
+          <label key={tab} className="dropdown-item" style={{ display: "block", padding: "6px 10px", cursor: "pointer" }}>
+            <input
+              type="checkbox"
+              checked={activeTabs.includes(tab)}
+              onChange={() => handleToggleTab(tab)}
+              style={{ marginRight: "6px" }}
+            />
+            <span>{tab}</span>
+          </label>
+        ))}
       </div>
+    )}
+  </div>
+</div>
+
 
       {/* Results */}
       <div className="results">
