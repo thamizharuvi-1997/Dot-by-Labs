@@ -62,10 +62,6 @@ names.forEach((name) => {
   }
 });
 
-// Preview first 10 entries
-console.log(sampleData.slice(0, 10));
-
-
 function App() {
   const [search, setSearch] = useState("");
   const [activeTabs, setActiveTabs] = useState(["All", "People", "Files", "Chats"]);
@@ -93,16 +89,24 @@ function App() {
     }
   };
 
-  const filteredData = sampleData.filter((item) => {
-    const matchSearch = item.name.toLowerCase().includes(search.toLowerCase());
-    if (selectedTab === "All") return matchSearch;
-    return matchSearch && item.type === selectedTab.toLowerCase();
-  });
+  const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
   const getTabCount = (type) => {
-    if (type === "All") return sampleData.length;
-    return sampleData.filter((item) => item.type === type.toLowerCase()).length;
+    if (type === "All") {
+      return sampleData.filter(item => activeTabs.includes(capitalize(item.type))).length;
+    }
+    if (!activeTabs.includes(type)) return 0;
+    return sampleData.filter(item => item.type === type.toLowerCase()).length;
   };
+
+  const filteredData = sampleData.filter((item) => {
+    const matchSearch = item.name.toLowerCase().includes(search.toLowerCase());
+    if (selectedTab === "All") {
+      // Show only active tabs items
+      return matchSearch && activeTabs.includes(capitalize(item.type));
+    }
+    return matchSearch && item.type === selectedTab.toLowerCase();
+  });
 
   return (
     <div className="app">
@@ -126,31 +130,30 @@ function App() {
 
       {/* Tabs Row + Settings Icon */}
       <div className="tabs-row">
-  <div className="tabs">
-    {["All", "Files", "People", "Chats"].map((tab) => {
-      if (!activeTabs.includes(tab) && tab !== "All") return null;
+        <div className="tabs">
+          {["All", "Files", "People", "Chats"].map((tab) => {
+            if (!activeTabs.includes(tab) && tab !== "All") return null;
 
-      const tabIcons = {
-        All: "🗂️",
-        People: "👤",
-        Files: "📎", 
-        Chats: "💬",
-      };
+            const tabIcons = {
+              All: "🗂️",
+              People: "👤",
+              Files: "📎",
+              Chats: "💬",
+            };
 
-      return (
-        <button
-          key={tab}
-          className={`tab ${selectedTab === tab ? "active" : ""}`}
-          onClick={() => setSelectedTab(tab)}
-        >
-          <span className="tab-icon">{tabIcons[tab]}</span>
-          <span className="tab-label">{tab}</span>
-          <span className="count">{getTabCount(tab)}</span>
-        </button>
-      );
-    })}
-  </div>
-
+            return (
+              <button
+                key={tab}
+                className={`tab ${selectedTab === tab ? "active" : ""}`}
+                onClick={() => setSelectedTab(tab)}
+              >
+                <span className="tab-icon">{tabIcons[tab]}</span>
+                <span className="tab-label">{tab}</span>
+                <span className="count">{getTabCount(tab)}</span>
+              </button>
+            );
+          })}
+        </div>
 
         {/* Settings Dropdown */}
         <div className="settings-container">
@@ -179,9 +182,7 @@ function App() {
         {filteredData.length > 0 ? (
           filteredData.map((item) => (
             <div key={item.id} className="result-card">
-              <div className="icon">
-                {item.type === "people" ? "👤" : item.type === "files" ? "📄" : "💬"}
-              </div>
+              <div className="icon">{item.icon}</div>
               <div className="details">
                 <div className="title">{item.name}</div>
                 <div className="subtitle">
