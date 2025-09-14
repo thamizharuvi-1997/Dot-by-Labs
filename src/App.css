@@ -1,0 +1,266 @@
+/* App.css */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #e0e0e0;
+  padding: 2rem;
+}
+
+.app {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  max-width: 600px;
+  margin: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+  height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-header {
+  display: flex;
+  justify-content: center;
+}
+
+.search-box-container {
+  display: flex;
+  align-items: center;
+  background: #f0f0f0;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  flex: 1;
+}
+
+.search-box-container input {
+  border: none;
+  background: transparent;
+  margin-left: 0.5rem;
+  flex: 1;
+  font-size: 16px;
+  width: 100%;
+  min-width: 0;
+  flex-shrink: 1;
+  color: #333;
+}
+
+.search-box-container input:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.search-icon {
+  font-size: 16px;
+  color: #888;
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #999;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.clear-btn:hover {
+  color: #333;
+}
+
+.tabs-row {
+  display: flex;
+  justify-content: flex-start; /* align items left */
+  align-items: center;
+  margin-top: 1rem;
+  border-bottom: 1px solid #eee;
+  gap: 0.75rem; /* small gap between all children */
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem; /* spacing between each tab */
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  font-size: 14px;
+  cursor: pointer;
+  color: #666;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.tab.active {
+  border-bottom: 2px solid #000;
+  color: #000;
+}
+
+.tab .count {
+  background: #eee;
+  border-radius: 12px;
+  padding: 2px 6px;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.settings-container {
+  /* remove margin-left: auto to keep it next to tabs */
+  position: relative;
+  z-index: 9999;
+  cursor: pointer;
+  /* add a small margin-left to separate from tabs */
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  height: 36px; /* same height as the dropdown top offset */
+}
+
+.settings-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 36px;
+  padding: 0;
+  line-height: 1;
+}
+
+.dropdown {
+  position: absolute;
+ right: 50px;
+    top: 100px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  z-index: 9999; /* make sure it's on top */
+  width: 150px;
+  margin: 0; /* remove any margin */
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.dropdown-item input {
+  margin-right: 8px;
+}
+
+.results {
+  margin-top: 1rem;
+  max-height: 400px; /* height for scrolling */
+  overflow-y: auto;
+  padding-right: 8px;
+  scroll-behavior: smooth;
+}
+
+.results::-webkit-scrollbar {
+  width: 6px;
+}
+
+.results::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.result-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.result-card .icon {
+  font-size: 20px;
+  margin-right: 1rem;
+}
+
+.result-card .details {
+  flex: 1;
+}
+
+.result-card .title {
+  font-weight: 500;
+}
+
+.result-card .subtitle {
+  font-size: 12px;
+  color: #888;
+}
+
+.no-results {
+  text-align: center;
+  color: #aaa;
+  margin-top: 2rem;
+}
+/* Toggle Switch Styles */
+/* Container for switch + label */
+.switch-label {
+  display: flex;
+  justify-content: space-between; /* text left, switch right */
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+  padding: 6px 0;
+  width: 100%;
+  position: relative;
+}
+
+/* Hide default checkbox */
+.switch-label input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+/* The slider background */
+.slider {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+  flex-shrink: 0;
+}
+
+/* The round knob inside the slider */
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 2px;
+  top: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+/* When checked, change background */
+.switch-label input:checked + .slider {
+  background-color: #4caf50;
+}
+
+/* Move knob to right when checked */
+.switch-label input:checked + .slider::before {
+  transform: translateX(20px);
+}
