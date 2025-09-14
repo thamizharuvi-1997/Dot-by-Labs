@@ -47,6 +47,7 @@ body {
   min-width: 0;
   flex-shrink: 1;
   color: #333;
+  height: 45px;
 }
 
 .search-box-container input:focus {
@@ -63,7 +64,8 @@ body {
 .clear-btn {
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 30px;
+  padding: 0 !important;
   color: #999;
   margin-left: 8px;
   cursor: pointer;

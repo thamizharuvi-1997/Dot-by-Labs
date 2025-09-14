@@ -1,11 +1,70 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
-const sampleData = Array.from({ length: 100 }, (_, i) => ({
-  id: i + 1,
-  type: i % 3 === 0 ? "people" : i % 3 === 1 ? "files" : "chats",
-  name: `Sample ${i + 1}`,
-}));
+const names = [
+  "Alice", "Ben", "Charlie", "Diana", "Ethan", "Fiona", "George", "Hannah",
+  "Ian", "Jack", "Kara", "Leo", "Mona", "Nathan", "Olivia", "Paul", "Quinn",
+  "Rachel", "Sam", "Tina", "Uma", "Victor", "Wendy", "Xander", "Yara", "Zane"
+];
+
+const fileTypes = [
+  { ext: ".pdf", icon: "📄" },
+  { ext: ".jpg", icon: "🖼️" },
+  { ext: ".mp3", icon: "🎵" },
+  { ext: ".mp4", icon: "🎬" },
+  { ext: ".docx", icon: "📃" }
+];
+
+const chatIcons = ["💬", "📨", "📱"];
+const peopleIcon = "👤";
+
+const sampleData = [];
+let id = 1;
+
+// --- PEOPLE DATA ---
+names.forEach((name) => {
+  sampleData.push({
+    id: id++,
+    type: "people",
+    name: name,
+    icon: peopleIcon
+  });
+});
+
+// --- FILES DATA ---
+// For each person, assign 1-2 unique file types randomly
+names.forEach((name) => {
+  const shuffledFileTypes = [...fileTypes].sort(() => Math.random() - 0.5);
+  const fileCount = Math.floor(Math.random() * 2) + 1; // 1 or 2 files per person
+
+  for (let i = 0; i < fileCount; i++) {
+    const file = shuffledFileTypes[i]; // no repeat
+    sampleData.push({
+      id: id++,
+      type: "files",
+      name: `${name}_file${file.ext}`,
+      icon: file.icon
+    });
+  }
+});
+
+// --- CHATS DATA ---
+// Create 1-2 chats per person
+names.forEach((name) => {
+  const chatCount = Math.floor(Math.random() * 2) + 1;
+  for (let i = 0; i < chatCount; i++) {
+    sampleData.push({
+      id: id++,
+      type: "chats",
+      name: `Chat with ${name}`,
+      icon: chatIcons[Math.floor(Math.random() * chatIcons.length)]
+    });
+  }
+});
+
+// Preview first 10 entries
+console.log(sampleData.slice(0, 10));
+
 
 function App() {
   const [search, setSearch] = useState("");
@@ -74,7 +133,7 @@ function App() {
       const tabIcons = {
         All: "🗂️",
         People: "👤",
-        Files: "📄",
+        Files: "📎", 
         Chats: "💬",
       };
 
